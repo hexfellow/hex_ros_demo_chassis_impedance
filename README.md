@@ -126,34 +126,7 @@ Ensure the following software is installed:
 
 ### Usage
 
-
-For a real robot, edit the following arguments in the selected launch file before launching.
-
-ROS 1 (`launch/ros1/real_impedance_maver_x4.launch` or `real_impedance_trigger_a.launch`):
-
-```xml
-<arg name="robot_host" default="192.168.1.100"/>
-<arg name="robot_port" default="8439"/>
-```
-
-ROS 2 (`launch/ros2/real_impedance_maver_x4.launch.py` or `real_impedance_trigger_a.launch.py`):
-
-```python
-robot_host_arg = DeclareLaunchArgument(
-    name='robot_host',
-    default_value='192.168.1.100')
-robot_port_arg = DeclareLaunchArgument(
-    name='robot_port',
-    default_value='8439')
-```
-
-launch (real robot + keyboard + impedance):
-
-```bash
-ros2 launch hex_ros_demo_chassis_impedance real_impedance_maver_x4.launch.py
-```
-
-
+#### Sim
 One-shot bringup (simulation + keyboard + impedance):
 
 ```shell
@@ -199,3 +172,32 @@ Or start the pieces separately:
    rosbag record -a    # ROS 1
    ros2 bag record -a  # ROS 2
    ```
+
+#### Real
+
+For real robot, edit the following arguments in the selected launch file before launching.
+
+ROS 1 (`launch/ros1/real_impedance_maver_x4.launch`):
+
+```xml
+<arg name="robot_host" default="192.168.1.100"/>
+<arg name="robot_port" default="8439"/>
+```
+
+ROS 2 (`launch/ros2/real_impedance_maver_x4.launch.py`):
+
+```python
+robot_host_arg = DeclareLaunchArgument(
+    name='robot_host',
+    default_value='192.168.1.100')
+robot_port_arg = DeclareLaunchArgument(
+    name='robot_port',
+    default_value='8439')
+```
+
+launch (real robot + keyboard + impedance):
+
+```bash
+ros2 launch hex_ros_demo_chassis_impedance real_impedance_maver_x4.launch.py
+```
+
