@@ -126,7 +126,35 @@ Ensure the following software is installed:
 
 ### Usage
 
-One-shot bringup (sim + keyboard + impedance):
+
+For a real robot, edit the following arguments in the selected launch file before launching.
+
+ROS 1 (`launch/ros1/real_impedance_maver_x4.launch` or `real_impedance_trigger_a.launch`):
+
+```xml
+<arg name="robot_host" default="192.168.1.100"/>
+<arg name="robot_port" default="8439"/>
+```
+
+ROS 2 (`launch/ros2/real_impedance_maver_x4.launch.py` or `real_impedance_trigger_a.launch.py`):
+
+```python
+robot_host_arg = DeclareLaunchArgument(
+    name='robot_host',
+    default_value='192.168.1.100')
+robot_port_arg = DeclareLaunchArgument(
+    name='robot_port',
+    default_value='8439')
+```
+
+launch (real robot + keyboard + impedance):
+
+```bash
+ros2 launch hex_ros_demo_chassis_impedance real_impedance_maver_x4.launch.py
+```
+
+
+One-shot bringup (simulation + keyboard + impedance):
 
 ```shell
 ros2 launch hex_ros_demo_chassis_impedance sim_impedance_maver_x4.launch.py
@@ -161,9 +189,13 @@ Or start the pieces separately:
 
    ```shell
    ros2 launch hex_ros_demo_chassis_impedance chassis_impedance_maver_x4.launch.py
-```
+   ```
 
-Replace the `maver_x4` suffix with `trigger_a` to use the Trigger A launch
-files. Use the matching `real_impedance_<type>` launch file for a real robot.
+   Replace the `maver_x4` suffix with `trigger_a` to use the Trigger A launch files.
 
-3. The chassis settles to the stable joint pose, records the equilibrium, then enters impedance control. Push the base in the MuJoCo viewer to feel the restoring behavior. Press `q` to exit. To record data, use ROS's bag tools, e.g. `ros2 bag record -a`.
+3. The chassis settles to the stable joint pose, records the equilibrium, then enters impedance control. Push the base in the MuJoCo viewer to feel the restoring behavior. Press `q` to exit. To record data, use ROS's bag tools, for example:
+
+   ```shell
+   rosbag record -a    # ROS 1
+   ros2 bag record -a  # ROS 2
+   ```
